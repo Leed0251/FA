@@ -1,0 +1,9 @@
+======================================================================================
+Start off with typing what your current available budget is.
+
+The program will ask you what the item name is, the weight, and the price of the item.
+When you finish you can type "xxx"
+
+You will be given a recommendation that fits in your budget with the best value.
+This will also give you an excel file containing all the items ordered by the value.
+======================================================================================
