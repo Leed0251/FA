@@ -1,15 +1,16 @@
 from string_checker import *
 from num_checker import *
+from get_unit import *
 
 def get_item():
     
     # Get item name
-    item_name = string_checker("Item name: ")
+    item_name = not_blank("Item name (or 'xxx' to quit): ")
     if item_name == "xxx":
         return "xxx", None, None
 
     # Get item info
-    weight = num_checker("Weight (grams): ", int)
+    weight = get_unit("Weight: ")
     cost = num_checker("Price: $", float)
 
     # return all the info
