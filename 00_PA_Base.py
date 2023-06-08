@@ -50,25 +50,26 @@ while True:
 # Sort the items dictionary by "Unit Price (per kg/l)"
 ordered_items = sort_dictionary(items, "Unit Price (per kg/l)")
 
+# Find the first item that fits within the budget
 best_value = None
 for key in ordered_items:
     if ordered_items[key]["Cost"] <= budget:
         best_value = key
         break
-    # Find the first item that fits within the budget
 
+# Convert the items dictionary to a pandas DataFrame
 item_frame = pandas.DataFrame(ordered_items)
 item_frame = item_frame.transpose()
-# Convert the items dictionary to a pandas DataFrame
 
+# Format the "Cost" and "Unit Price (per kg/l)" columns as currency
 addDollars = ["Cost", "Unit Price (per kg/l)"]
 for varItem in addDollars:
     item_frame[varItem] = item_frame[varItem].apply(currency)
-# Format the "Cost" and "Unit Price (per kg/l)" columns as currency
 
 header_text = f"Current budget: {currency(budget)}"
 footer_text = ""
 
+# Create the header and footer text for displaying recommendations
 if best_value != None:
     item_information = ordered_items[best_value]
     footer_text = f"Recommendation: {best_value}, {currency(item_information['Unit Price (per kg/l)'])} / kg, {item_information['Weight (g/ml)']}g product costs {currency(item_information['Cost'])}"
@@ -78,15 +79,15 @@ else:
     footer_text = f"There are no items that fit in your budget.\n\n\
         Cheapest: {cheapest}, {currency(ordered_items[cheapest]['Unit Price (per kg/l)'])} / (kg/l), {ordered_items[cheapest]['Weight (g/ml)']}g product costs {currency(ordered_items[cheapest]['Cost'])}\n\
         Best Value: {best_value}, {currency(ordered_items[best_value]['Unit Price (per kg/l)'])} / (kg/l), {ordered_items[best_value]['Weight (g/ml)']}g product costs {currency(ordered_items[best_value]['Cost'])}"
-# Create the header and footer text for displaying recommendations
 
+# Display the header, item frame, and footer text
 print(header_text)
 print("\n")
 print(item_frame.to_string())
 print()
 print(footer_text)
-# Display the header, item frame, and footer text
 
+# Prompt the user to save the results and export them to a file if desired
 saving = yes_no("Would you like to save your results? (yes/no) ")
 
 if saving == "yes":
@@ -97,4 +98,3 @@ if saving == "yes":
         print(f"\nFile name was left blank and has been named \x1B[36m{file_name}\x1B[0m\n")
 
     export_file(item_frame, file_name, header_text, footer_text)
-# Prompt the user to save the results and export them to a file if desired
