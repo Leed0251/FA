@@ -5,7 +5,7 @@ from get_unit import *
 def get_item():
     
     # Get item name
-    item_name = not_blank("Item name (or 'xxx' to quit): ")
+    item_name = not_blank("Item name (or 'xxx' to quit): ", None)
     if item_name == "xxx":
         return "xxx", None, None
 

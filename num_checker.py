@@ -12,6 +12,7 @@ def num_checker(question, num_type):
             number_input = num_checker(question, num_type)
     except:
         # Ask again if string
+        print("Input is not a valid number")
         number_input = num_checker(question, num_type)
     finally:
         # Return valid number
