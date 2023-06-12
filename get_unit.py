@@ -14,66 +14,14 @@ def get_unit(question):
                 length = len(unit)
                 if (user_input[-length:]).lower() == unit.lower():
                     num = user_input[:-length]
-                    if num == "":
-                        raise ValueError("Input must be a valid measurement of weight")
-                    user_number = float()
+                    if float(num) > 0:
+                        if num == "":
+                            raise ValueError("Input must be a valid measurement of weight")
+                        user_number = float(num)
+                    else:
+                        raise ValueError("Unit must be higher than 0")
 
                     return user_number * units[unit]
             raise ValueError("Input must be a valid measurement of weight")
         except ValueError as error:
             print(error)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-print(get_unit("Unit: "))
-print(get_unit("Unit: "))
-print(get_unit("Unit: "))

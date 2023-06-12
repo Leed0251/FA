@@ -33,6 +33,3 @@ def yes_no(question):
             print("Input must be 'yes' or 'no'")
         else:
             print("Input can not be blank")
-
-print(yes_no("Testing: "))
-print(yes_no("Testing: "))
