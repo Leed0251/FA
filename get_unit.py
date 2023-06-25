@@ -1,7 +1,9 @@
 import configparser
+from itertools import groupby
 
 def get_unit(question):
-    # Dictionary is ordered by unit length and value shows multiple
+    # Convert units to grams or mililitres
+    # Code from https://blog.finxter.com/how-to-split-a-string-between-numbers-and-letters/
     parser = configparser.ConfigParser()
     parser.read("units.ini")
     units = parser._sections["Units"]
@@ -12,21 +14,22 @@ def get_unit(question):
     while True:
         try:
             user_input = input(question)
-            # Loop through the units to find what was given
-            for unit in units:
-                length = len(unit)
-                if (user_input[-length:]).lower() == unit.lower():
-                    # Seperate the number from the unit
-                    num = user_input[:-length]
-                    if float(num) > 0:
-                        # Makes sure the unit has a proper value
-                        if num == "":
-                            raise ValueError(weight_error)
-                        user_number = float(num)
-                    else:
-                        raise ValueError(boundary_error)
+            split = ["".join(g) for _, g in groupby(user_input, str.isalpha)]
 
-                    return user_number * float(units[unit])
+            if len(split) != 2:
+                raise ValueError(weight_error)
+
+            value = float(split[0])
+            unit = split[1].lower()
+
+            if unit in units:
+                unit_value = float(units[unit])
+                returning = unit_value * value
+                if 1 > returning:
+                    raise ValueError(boundary_error)
+
+                return unit_value * value
+
             raise ValueError(weight_error)
         except ValueError as error:
             print(error)
