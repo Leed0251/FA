@@ -20,7 +20,7 @@ show_instructions = yes_no("Do you want to read the instructions? ")
 
 if show_instructions == "yes":
     # Display the instructions if requested
-    f = open('instructions.txt', 'r')
+    f = open('README.txt', 'r')
     print("\x1B[0m")
     print(f.read())
     f.close()
