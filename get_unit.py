@@ -8,12 +8,12 @@ def get_unit(question):
     parser.read("units.ini")
     units = parser._sections["Units"]
 
-    weight_error = "Input must be a valid measurement of weight"
-    boundary_error = "Unit must be higher than 0"
+    weight_error = "\x1B[31mInput must be a valid measurement of weight\x1B[0m"
+    boundary_error = "\x1B[31mThat looks like a typo, please try again\x1B[0m"
 
     while True:
         try:
-            user_input = input(question)
+            user_input = input("\x1B[0m" + question + "\x1B[32m")
             split = ["".join(g) for _, g in groupby(user_input, str.isalpha)]
 
             if len(split) != 2:
@@ -25,7 +25,7 @@ def get_unit(question):
             if unit in units:
                 unit_value = float(units[unit])
                 returning = unit_value * value
-                if 1 > returning:
+                if returning > 5000 or returning < 1:
                     raise ValueError(boundary_error)
 
                 return unit_value * value

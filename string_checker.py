@@ -1,9 +1,9 @@
 def not_blank(question, default):
-    user_input = input(question)
+    user_input = input("\x1B[0m" + question + "\x1B[35m")
     # Check if blank
     if user_input == "":
         if default == None:
-            print("Input can not be blank")
+            print("\x1B[31mInput can not be blank")
             user_input = not_blank(question, default)
         else:
             # Replace input, and return value
@@ -23,13 +23,13 @@ def yes_no(question):
     valid = False
     while not valid:
 
-        response = input(question).lower()
+        response = input("\x1B[0m" + question + "\x1B[34m").lower()
 
         if response != "":
             # Check if responses contain use input
             for item in responses:
                 if response in item:
                     return item
-            print("Input must be 'yes' or 'no'")
+            print("\x1B[31mInput must be 'yes' or 'no'")
         else:
-            print("Input can not be blank")
+            print("\x1B[31mInput can not be blank")

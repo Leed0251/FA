@@ -21,8 +21,10 @@ show_instructions = yes_no("Do you want to read the instructions? ")
 if show_instructions == "yes":
     # Display the instructions if requested
     f = open('instructions.txt', 'r')
+    print("\x1B[0m")
     print(f.read())
     f.close()
+print()
 
 items = {}
 
@@ -33,7 +35,7 @@ item_name = ""
 
 # Prompt the user to enter item details until they enter 'xxx'
 while True:
-    item_name, weight, cost = get_item()
+    item_name, weight, cost = get_item(items)
 
     # Exit the loop if 'xxx' is entered
     if item_name == "xxx":
@@ -46,6 +48,9 @@ while True:
         "Cost": cost, 
         "Unit Price (per kg/l)": cost/(weight/1000)
     }
+
+if len(items) == 0:
+    exit()
 
 # Sort the items dictionary by "Unit Price (per kg/l)"
 ordered_items = sort_dictionary(items, "Unit Price (per kg/l)")
@@ -81,19 +86,22 @@ else:
         Best Value: {best_value}, {currency(ordered_items[best_value]['Unit Price (per kg/l)'])} / (kg/l), {ordered_items[best_value]['Weight (g/ml)']}g product costs {currency(ordered_items[best_value]['Cost'])}"
 
 # Display the header, item frame, and footer text
+print("\x1B[0m")
 print(header_text)
 print("\n")
 print(item_frame.to_string())
 print()
 print(footer_text)
+print()
 
 # Prompt the user to save the results and export them to a file if desired
-saving = yes_no("Would you like to save your results? (yes/no) ")
+saving = yes_no("Would you like to save your results? (yes / no) ")
 
 if saving == "yes":
     file_name, replaced = not_blank('\nWhat do you want your file to be called? ', date.today())
     file_name = f"{file_name}.txt"
 
+    print("\x1B[0m")
     if replaced:
         print(f"\nFile name was left blank and has been named \x1B[36m{file_name}\x1B[0m\n")
 
